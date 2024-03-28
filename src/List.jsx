@@ -1,13 +1,12 @@
 import ListItem from "./ListItem";
 
-const List = () => {
+const List = ({ listItems }) => {
   return (
     <div className="mx-3 mt-6 mb-4 flex justify-center items-center dark:text-white">
       <ul className="flex flex-col justify-center items-center">
-        <ListItem>Item 1</ListItem>
-        <ListItem>Item 2</ListItem>
-        <ListItem>Item 3</ListItem>
-        <ListItem>Item 4</ListItem>
+        {listItems.map((listItem) => {
+          return <ListItem key={listItem.id}>{listItem.itemName}</ListItem>;
+        })}
       </ul>
     </div>
   );

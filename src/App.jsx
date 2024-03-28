@@ -48,6 +48,7 @@ const listItems = [
 function App() {
   const [completedItems, setCompletedItems] = useState([]);
   const totalItems = listItems.length;
+  const progress = (completedItems.length / totalItems) * 100;
 
   const strikeItemCompletion = (itemId) => {
     setCompletedItems((prevCompletedItems) => {
@@ -68,7 +69,7 @@ function App() {
         completedItems={completedItems}
         strikeItemCompletion={strikeItemCompletion}
       />
-      <ProgressBar />
+      <ProgressBar progress={progress} />
       <Footer />
     </div>
   );

@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState } from "react";
 import Header from "./Header";
 import Login from "./Login";
 import List from "./List";
@@ -45,11 +46,28 @@ const listItems = [
 ];
 
 function App() {
+  const [completedItems, setCompletedItems] = useState([]);
+  const totalItems = listItems.length;
+
+  const strikeItemCompletion = (itemId) => {
+    setCompletedItems((prevCompletedItems) => {
+      if (prevCompletedItems.includes(itemId)) {
+        return prevCompletedItems.filter((id) => id !== itemId);
+      } else {
+        return [...prevCompletedItems, itemId];
+      }
+    });
+  };
+
   return (
     <div className="bg-white dark:bg-black">
       <Header />
       <Login />
-      <List listItems={listItems} />
+      <List
+        listItems={listItems}
+        completedItems={completedItems}
+        strikeItemCompletion={strikeItemCompletion}
+      />
       <ProgressBar />
       <Footer />
     </div>

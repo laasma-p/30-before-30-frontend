@@ -64,12 +64,12 @@ function App() {
     <div className="bg-white dark:bg-black">
       <Header />
       <Login />
+      <ProgressBar progress={progress} />
       <List
         listItems={listItems}
         completedItems={completedItems}
         strikeItemCompletion={strikeItemCompletion}
       />
-      <ProgressBar progress={progress} />
       <Footer />
     </div>
   );

@@ -12,7 +12,7 @@ const List = ({ listItems, completedItems, strikeItemCompletion }) => {
               isCompleted={isCompleted}
               onClick={() => strikeItemCompletion(listItem.id)}
             >
-              {listItem.itemName}
+              {listItem.item}
             </ListItem>
           );
         })}

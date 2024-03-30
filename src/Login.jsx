@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Login = () => {
+const Login = ({ isLoggedIn, setIsLoggedIn, onLogin }) => {
   const [openForm, setOpenForm] = useState(false);
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -17,9 +17,33 @@ const Login = () => {
     setEnteredPassword(event.target.value);
   };
 
+  const loginHandler = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ enteredEmail, enteredPassword }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Invalid credentials");
+      }
+
+      setIsLoggedIn(true);
+      setOpenForm(false);
+      onLogin();
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
+  };
+
   return (
     <div className="flex flex-col transition-all justify-center items-center">
-      {!openForm && (
+      {!isLoggedIn && !openForm && (
         <button
           className="transition-all bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black w-10/12 text-lg max-w-xs px-1.5 py-2 rounded-md mt-4"
           onClick={toggleFormHandler}
@@ -27,9 +51,12 @@ const Login = () => {
           Open form
         </button>
       )}
-      {openForm && (
+      {!isLoggedIn && openForm && (
         <div className="transition-all bg-light-pink w-10/12 sm:max-w-xl mx-auto mt-4 mb-2 px-4 rounded-md">
-          <form className="flex flex-col justify-center items-center pt-1 pb-4">
+          <form
+            className="flex flex-col justify-center items-center pt-1 pb-4"
+            onSubmit={loginHandler}
+          >
             <label htmlFor="email" className="block my-2 text-md">
               E-mail
             </label>
@@ -55,6 +82,11 @@ const Login = () => {
             </button>
           </form>
         </div>
+      )}
+      {isLoggedIn && (
+        <button className="transition-all bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black w-10/12 text-lg max-w-xs px-1.5 py-2 rounded-md mt-4">
+          Testing log in functionality
+        </button>
       )}
     </div>
   );

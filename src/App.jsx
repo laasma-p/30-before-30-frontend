@@ -9,6 +9,7 @@ import Footer from "./Footer";
 function App() {
   const [listItems, setListItems] = useState([]);
   const [completedItems, setCompletedItems] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3000/items")
@@ -22,6 +23,10 @@ function App() {
         console.log("Error fetching items: ", error);
       });
   }, []);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
 
   const totalItems = listItems.length;
   const progress = (completedItems.length / totalItems) * 100;
@@ -39,7 +44,11 @@ function App() {
   return (
     <div className="bg-white dark:bg-black">
       <Header />
-      <Login />
+      <Login
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        onLogin={handleLogin}
+      />
       <ProgressBar progress={progress} />
       <List
         listItems={listItems}

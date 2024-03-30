@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Login = ({ isLoggedIn, setIsLoggedIn, onLogin }) => {
+const Login = ({ isLoggedIn, setIsLoggedIn, onLogin, onLogout }) => {
   const [openForm, setOpenForm] = useState(false);
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -39,6 +39,12 @@ const Login = ({ isLoggedIn, setIsLoggedIn, onLogin }) => {
     } catch (error) {
       console.error("Error logging in:", error);
     }
+  };
+
+  const logoutHandler = () => {
+    setIsLoggedIn(false);
+    setOpenForm(false);
+    onLogout();
   };
 
   return (
@@ -84,8 +90,11 @@ const Login = ({ isLoggedIn, setIsLoggedIn, onLogin }) => {
         </div>
       )}
       {isLoggedIn && (
-        <button className="transition-all bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black w-10/12 text-lg max-w-xs px-1.5 py-2 rounded-md mt-4">
-          Testing log in functionality
+        <button
+          className="transition-all bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black w-10/12 text-lg max-w-xs px-1.5 py-2 rounded-md mt-4"
+          onClick={logoutHandler}
+        >
+          Logout
         </button>
       )}
     </div>

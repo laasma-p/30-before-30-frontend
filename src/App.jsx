@@ -28,6 +28,10 @@ function App() {
     setIsLoggedIn(true);
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
   const totalItems = listItems.length;
   const progress = (completedItems.length / totalItems) * 100;
 
@@ -48,6 +52,7 @@ function App() {
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         onLogin={handleLogin}
+        onLogout={handleLogout}
       />
       <ProgressBar progress={progress} />
       <List

@@ -35,16 +35,34 @@ const Login = ({ isLoggedIn, setIsLoggedIn, onLogin, onLogout }) => {
 
       setIsLoggedIn(true);
       setOpenForm(false);
+      setEnteredEmail("");
+      setEnteredPassword("");
       onLogin();
     } catch (error) {
       console.error("Error logging in:", error);
     }
   };
 
-  const logoutHandler = () => {
-    setIsLoggedIn(false);
-    setOpenForm(false);
-    onLogout();
+  const logoutHandler = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setIsLoggedIn(false);
+        setOpenForm(false);
+        onLogout();
+      } else {
+        throw new Error("Logout failed");
+      }
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
   };
 
   return (

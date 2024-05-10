@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Login = ({ isLoggedIn, setIsLoggedIn, onLogin, onLogout }) => {
+const Login = ({ isLoggedIn, setIsLoggedIn, onLogin }) => {
   const [openForm, setOpenForm] = useState(false);
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -33,35 +33,15 @@ const Login = ({ isLoggedIn, setIsLoggedIn, onLogin, onLogout }) => {
         throw new Error("Invalid credentials");
       }
 
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
       setIsLoggedIn(true);
       setOpenForm(false);
       setEnteredEmail("");
       setEnteredPassword("");
-      onLogin();
+      onLogin(data.listData);
     } catch (error) {
       console.error("Error logging in:", error);
-    }
-  };
-
-  const logoutHandler = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-
-      if (response.ok) {
-        setIsLoggedIn(false);
-        setOpenForm(false);
-        onLogout();
-      } else {
-        throw new Error("Logout failed");
-      }
-    } catch (error) {
-      console.error("Error logging out:", error);
     }
   };
 
@@ -108,10 +88,7 @@ const Login = ({ isLoggedIn, setIsLoggedIn, onLogin, onLogout }) => {
         </div>
       )}
       {isLoggedIn && (
-        <button
-          className="transition-all bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black w-10/12 text-lg max-w-xs px-1.5 py-2 rounded-md mt-4"
-          onClick={logoutHandler}
-        >
+        <button className="transition-all bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black w-10/12 text-lg max-w-xs px-1.5 py-2 rounded-md mt-4">
           Logout
         </button>
       )}

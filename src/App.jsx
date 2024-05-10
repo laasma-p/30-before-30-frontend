@@ -46,20 +46,22 @@ function App() {
   };
 
   return (
-    <div className="bg-white dark:bg-black">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-black">
       <Header />
-      <Login
-        isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
-        onLogin={handleLogin}
-        onLogout={handleLogout}
-      />
-      <ProgressBar progress={progress} />
-      <List
-        listItems={listItems}
-        completedItems={completedItems}
-        strikeItemCompletion={strikeItemCompletion}
-      />
+      <div className="flex-grow">
+        <Login
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          onLogin={handleLogin}
+          onLogout={handleLogout}
+        />
+        <ProgressBar progress={progress} />
+        <List
+          listItems={listItems}
+          completedItems={completedItems}
+          strikeItemCompletion={strikeItemCompletion}
+        />
+      </div>
       <Footer />
     </div>
   );

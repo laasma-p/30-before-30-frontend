@@ -1,20 +1,42 @@
 import ListItem from "./ListItem";
+import { useState, useEffect } from "react";
 
-const List = ({ listItems, completedItems, strikeItemCompletion }) => {
+const List = ({ isLoggedIn }) => {
+  const [listItems, setListItems] = useState([]);
+
+  useEffect(() => {
+    const fetchListItems = async () => {
+      try {
+        const response = await fetch(
+          isLoggedIn
+            ? "http://localhost:3000/user-items-list"
+            : "http://localhost:3000/public-items-list",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch list data");
+        }
+
+        const data = await response.json();
+        setListItems(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchListItems();
+  }, [isLoggedIn]);
+
   return (
-    <div className="mx-3 mt-6 mb-4 flex justify-center items-center dark:text-white">
+    <div className="mx-3 mt-6 pb-4 flex justify-center items-center dark:text-white">
       <ul className="flex flex-col justify-center items-center">
         {listItems.map((listItem) => {
-          const isCompleted = completedItems.includes(listItem.id);
-          return (
-            <ListItem
-              key={listItem.id}
-              isCompleted={isCompleted}
-              onClick={() => strikeItemCompletion(listItem.id)}
-            >
-              {listItem.item}
-            </ListItem>
-          );
+          return <ListItem key={listItem.id}>{listItem.item}</ListItem>;
         })}
       </ul>
     </div>

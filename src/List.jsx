@@ -68,20 +68,24 @@ const List = ({ isLoggedIn }) => {
     <>
       <ProgressBar progress={progress} />
       <div className="mx-3 mt-6 pb-4 flex justify-center items-center dark:text-white">
-        <ul className="flex flex-col justify-center items-center">
-          {listItems.map((listItem) => {
-            return (
-              <ListItem
-                key={listItem.id}
-                isCompleted={listItem.completed}
-                isLoggedIn={isLoggedIn}
-                onClick={() => completeItemHandler(listItem.id)}
-              >
-                {listItem.item}
-              </ListItem>
-            );
-          })}
-        </ul>
+        {totalItemsCount === 0 ? (
+          <p className="py-1.5 px-4 text-lg text-center">No items yet.</p>
+        ) : (
+          <ul className="flex flex-col justify-center items-center">
+            {listItems.map((listItem) => {
+              return (
+                <ListItem
+                  key={listItem.id}
+                  isCompleted={listItem.completed}
+                  isLoggedIn={isLoggedIn}
+                  onClick={() => completeItemHandler(listItem.id)}
+                >
+                  {listItem.item}
+                </ListItem>
+              );
+            })}
+          </ul>
+        )}
       </div>
     </>
   );

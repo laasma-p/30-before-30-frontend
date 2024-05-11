@@ -59,9 +59,7 @@ const List = ({ isLoggedIn }) => {
   };
 
   const totalItemsCount = listItems.length;
-  const completedItemsCount = listItems
-    .filter((item) => item.completed)
-    .length();
+  const completedItemsCount = listItems.filter((item) => item.completed).length;
 
   const progress =
     totalItemsCount > 0 ? (completedItemsCount / totalItemsCount) * 100 : 0;

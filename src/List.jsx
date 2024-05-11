@@ -58,9 +58,17 @@ const List = ({ isLoggedIn }) => {
     }
   };
 
+  const totalItemsCount = listItems.length;
+  const completedItemsCount = listItems
+    .filter((item) => item.completed)
+    .length();
+
+  const progress =
+    totalItemsCount > 0 ? (completedItemsCount / totalItemsCount) * 100 : 0;
+
   return (
     <>
-      <ProgressBar />
+      <ProgressBar progress={progress} />
       <div className="mx-3 mt-6 pb-4 flex justify-center items-center dark:text-white">
         <ul className="flex flex-col justify-center items-center">
           {listItems.map((listItem) => {

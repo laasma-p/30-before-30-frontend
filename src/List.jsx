@@ -1,4 +1,5 @@
 import ListItem from "./ListItem";
+import ProgressBar from "./ProgressBar";
 import { useState, useEffect } from "react";
 
 const List = ({ isLoggedIn }) => {
@@ -33,13 +34,16 @@ const List = ({ isLoggedIn }) => {
   }, [isLoggedIn]);
 
   return (
-    <div className="mx-3 mt-6 pb-4 flex justify-center items-center dark:text-white">
-      <ul className="flex flex-col justify-center items-center">
-        {listItems.map((listItem) => {
-          return <ListItem key={listItem.id}>{listItem.item}</ListItem>;
-        })}
-      </ul>
-    </div>
+    <>
+      <ProgressBar />
+      <div className="mx-3 mt-6 pb-4 flex justify-center items-center dark:text-white">
+        <ul className="flex flex-col justify-center items-center">
+          {listItems.map((listItem) => {
+            return <ListItem key={listItem.id}>{listItem.item}</ListItem>;
+          })}
+        </ul>
+      </div>
+    </>
   );
 };
 

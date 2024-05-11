@@ -1,6 +1,6 @@
-const ListItem = ({ children, isCompleted, onClick }) => {
+const ListItem = ({ children, isCompleted, isLoggedIn, onClick }) => {
   const handleClick = () => {
-    if (!isCompleted) {
+    if (isLoggedIn && !isCompleted) {
       onClick();
     }
   };
@@ -11,7 +11,7 @@ const ListItem = ({ children, isCompleted, onClick }) => {
         isCompleted ? "line-through" : ""
       }`}
       onClick={handleClick}
-      style={{ cursor: isCompleted ? "default" : "pointer" }}
+      style={{ cursor: isLoggedIn && !isCompleted ? "pointer" : "default" }}
     >
       {children}
     </li>

@@ -33,13 +33,47 @@ const List = ({ isLoggedIn }) => {
     fetchListItems();
   }, [isLoggedIn]);
 
+  const completeItemHandler = async (itemId) => {
+    try {
+      const response = await fetch("http://localhost:3000/complete-item", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ itemId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to mark item as completed");
+      }
+
+      setListItems((prevListItems) =>
+        prevListItems.map((item) =>
+          item.id === itemId ? { ...item, completed: true } : item
+        )
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <ProgressBar />
       <div className="mx-3 mt-6 pb-4 flex justify-center items-center dark:text-white">
         <ul className="flex flex-col justify-center items-center">
           {listItems.map((listItem) => {
-            return <ListItem key={listItem.id}>{listItem.item}</ListItem>;
+            return (
+              <ListItem
+                key={listItem.id}
+                isCompleted={listItem.completed}
+                isLoggedIn={isLoggedIn}
+                onClick={() => completeItemHandler(listItem.id)}
+              >
+                {listItem.item}
+              </ListItem>
+            );
           })}
         </ul>
       </div>

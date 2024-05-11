@@ -45,6 +45,11 @@ const Login = ({ isLoggedIn, setIsLoggedIn, onLogin }) => {
     }
   };
 
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
+
   return (
     <div className="flex flex-col transition-all justify-center items-center">
       {!isLoggedIn && !openForm && (
@@ -88,7 +93,10 @@ const Login = ({ isLoggedIn, setIsLoggedIn, onLogin }) => {
         </div>
       )}
       {isLoggedIn && (
-        <button className="transition-all bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black w-10/12 text-lg max-w-xs px-1.5 py-2 rounded-md mt-4">
+        <button
+          className="transition-all bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black w-10/12 text-lg max-w-xs px-1.5 py-2 rounded-md mt-4"
+          onClick={logoutHandler}
+        >
           Logout
         </button>
       )}

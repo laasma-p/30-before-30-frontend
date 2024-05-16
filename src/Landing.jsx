@@ -12,7 +12,7 @@ const Landing = () => {
         type="button"
         className="flex flex-wrap justify-center text-center w-10/12 text-lg bg-pink hover:bg-hot-pink dark:bg-hot-pink dark:hover:bg-pink text-black hover:text-white dark:text-white dark:hover:text-black max-w-xs px-3.5 py-2 mt-4 rounded-md transition-all"
       >
-        Open form
+        Login/Register
       </button>
     </div>
   );

@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import Header from "./Header";
-import Login from "./Login";
+import Form from "./Form";
 import List from "./List";
 import Footer from "./Footer";
 
@@ -31,7 +31,7 @@ function App() {
     <div className="flex flex-col min-h-screen bg-white dark:bg-black transition-all">
       <Header />
       <div className="flex-grow">
-        <Login
+        <Form
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}
           onLogin={handleLogin}

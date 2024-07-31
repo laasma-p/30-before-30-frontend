@@ -10,7 +10,7 @@ const Landing = () => {
 
   return (
     <div className="flex flex-col flex-grow items-center">
-      <h1 className="text-4xl lg:text-5xl px-3 pt-28 sm:pt-32 md:pt-40 pb-2 text-black dark:text-white">
+      <h1 className="text-center text-4xl lg:text-5xl px-3 pt-28 sm:pt-26 md:pt-32 pb-2 text-black dark:text-white">
         30 Before 30
       </h1>
       <p className="text-center text-md lg:text-lg px-6 pb-4 text-black dark:text-white">

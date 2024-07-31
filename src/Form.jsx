@@ -61,7 +61,7 @@ const Form = ({ isLoggedIn, setIsLoggedIn, onLogin }) => {
             value={enteredEmail}
             onChange={enteredEmailChangeHandler}
           />
-          <label htmlFor="email" className="block my-2 text-md">
+          <label htmlFor="password" className="block my-2 text-md">
             Password
           </label>
           <input

@@ -8,16 +8,11 @@ const List = ({ isLoggedIn }) => {
   useEffect(() => {
     const fetchListItems = async () => {
       try {
-        const response = await fetch(
-          isLoggedIn
-            ? "http://localhost:3000/user-items-list"
-            : "http://localhost:3000/public-items-list",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const response = await fetch("http://localhost:3000/user-items-list", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch list data");

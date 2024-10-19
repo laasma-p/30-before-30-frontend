@@ -1,4 +1,5 @@
 import ListItem from "./ListItem";
+import Header from "./Header";
 import ProgressBar from "./ProgressBar";
 import { useState, useEffect } from "react";
 
@@ -61,6 +62,7 @@ const List = ({ isLoggedIn }) => {
 
   return (
     <>
+      <Header />
       <ProgressBar progress={progress} />
       <div className="mx-3 mt-6 pb-4 flex justify-center items-center dark:text-white">
         {totalItemsCount === 0 ? (

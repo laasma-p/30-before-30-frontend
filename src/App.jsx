@@ -2,10 +2,18 @@ import "./App.css";
 import Landing from "./Landing";
 import List from "./List";
 import Footer from "./Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const onLogin = () => {
     setIsLoggedIn(true);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Form from "./Form";
 
-const Landing = () => {
+const Landing = ({ onLogin }) => {
   const [openForm, setOpenForm] = useState(false);
 
   const openFormHandler = () => {
@@ -26,7 +26,7 @@ const Landing = () => {
           Login/Register
         </button>
       )}
-      {openForm && <Form />}
+      {openForm && <Form onLogin={onLogin} />}
     </div>
   );
 };

@@ -11,12 +11,17 @@ function App() {
     setIsLoggedIn(true);
   };
 
+  const onLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-black transition-all">
       {!isLoggedIn ? (
         <Landing onLogin={onLogin} />
       ) : (
-        <List isLoggedIn={isLoggedIn} />
+        <List isLoggedIn={isLoggedIn} onLogout={onLogout} />
       )}
       <Footer />
     </div>

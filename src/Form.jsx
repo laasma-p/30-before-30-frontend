@@ -77,38 +77,6 @@ const Form = ({ onLogin }) => {
       {isLoginForm ? (
         <form
           className="flex flex-col justify-center items-center pt-1 pb-4"
-          onSubmit={loginHandler}
-        >
-          <label htmlFor="email" className="block my-2 text-md">
-            E-mail
-          </label>
-          <input
-            id="email"
-            type="email"
-            className="w-full rounded-md max-w-xs py-1.5 px-2 focus:outline-hot-pink text-md"
-            value={enteredEmail}
-            onChange={enteredEmailChangeHandler}
-          />
-          <label htmlFor="password" className="block my-2 text-md">
-            Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            className="w-full rounded-md max-w-xs py-1.5 px-2 focus:outline-hot-pink text-md"
-            value={enteredPassword}
-            onChange={enteredPasswordChangeHandler}
-          />
-          <button className="bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black w-full text-lg max-w-xs px-1.5 py-2 rounded-md mt-4">
-            Log In
-          </button>
-          <button className="mt-2" onClick={switchFormHandler}>
-            Switch to register
-          </button>
-        </form>
-      ) : (
-        <form
-          className="flex flex-col justify-center items-center pt-1 pb-4"
           onSubmit={registerHandler}
         >
           <label htmlFor="name" className="block my-2 text-md">
@@ -146,6 +114,38 @@ const Form = ({ onLogin }) => {
           </button>
           <button className="mt-2" onClick={switchFormHandler}>
             Switch to login
+          </button>
+        </form>
+      ) : (
+        <form
+          className="flex flex-col justify-center items-center pt-1 pb-4"
+          onSubmit={loginHandler}
+        >
+          <label htmlFor="email" className="block my-2 text-md">
+            E-mail
+          </label>
+          <input
+            id="email"
+            type="email"
+            className="w-full rounded-md max-w-xs py-1.5 px-2 focus:outline-hot-pink text-md"
+            value={enteredEmail}
+            onChange={enteredEmailChangeHandler}
+          />
+          <label htmlFor="password" className="block my-2 text-md">
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            className="w-full rounded-md max-w-xs py-1.5 px-2 focus:outline-hot-pink text-md"
+            value={enteredPassword}
+            onChange={enteredPasswordChangeHandler}
+          />
+          <button className="bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black w-full text-lg max-w-xs px-1.5 py-2 rounded-md mt-4">
+            Log In
+          </button>
+          <button className="mt-2" onClick={switchFormHandler}>
+            Switch to register
           </button>
         </form>
       )}

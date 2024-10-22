@@ -5,6 +5,11 @@ import { useState, useEffect } from "react";
 
 const List = ({ isLoggedIn, onLogout }) => {
   const [listItems, setListItems] = useState([]);
+  const [listItem, setListItem] = useState("");
+
+  const listItemChangeHandler = (event) => {
+    setListItem(event.target.value);
+  };
 
   useEffect(() => {
     const fetchListItems = async () => {
@@ -54,8 +59,36 @@ const List = ({ isLoggedIn, onLogout }) => {
     }
   };
 
+  const addItemHandler = async (event) => {
+    if (listItems.length < maxListItems && listItem.trim()) {
+      event.preventDefault();
+
+      try {
+        const response = await fetch("http://localhost:3000/add-item", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ item: listItem }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to add an item");
+        }
+
+        const addedItem = await response.json();
+        setListItems((prevListItems) => [...prevListItems, addedItem]);
+        setListItem("");
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   const totalItemsCount = listItems.length;
   const completedItemsCount = listItems.filter((item) => item.completed).length;
+  const maxListItems = 30;
 
   const progress =
     totalItemsCount > 0 ? (completedItemsCount / totalItemsCount) * 100 : 0;
@@ -64,6 +97,33 @@ const List = ({ isLoggedIn, onLogout }) => {
     <>
       <Header onLogout={onLogout} />
       <ProgressBar progress={progress} />
+      {totalItemsCount < maxListItems && (
+        <form onSubmit={addItemHandler}>
+          <div className="mt-4 flex justify-center">
+            <div className="flex flex-col sm:flex-row items-center">
+              <label htmlFor="listItem" className="sr-only">
+                Add a new item
+              </label>
+              <input
+                id="listItem"
+                type="text"
+                className="border border-hot-pink p-2 rounded-md"
+                value={listItem}
+                onChange={listItemChangeHandler}
+                placeholder="A new item"
+              />
+              <button className="ml-2 mt-2 sm:mt-0 bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black px-4 py-2 rounded-md transition-all">
+                Add
+              </button>
+            </div>
+          </div>
+        </form>
+      )}
+      {totalItemsCount >= maxListItems && (
+        <p className="py-1.5 px-4 text-lg text-center">
+          Maximum of 30 items reached.
+        </p>
+      )}
       <div className="mx-3 mt-6 pb-4 flex justify-center items-center dark:text-white">
         {totalItemsCount === 0 ? (
           <p className="py-1.5 px-4 text-lg text-center">No items yet.</p>

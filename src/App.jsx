@@ -26,11 +26,13 @@ function App() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-black transition-all">
-      {!isLoggedIn ? (
-        <Landing onLogin={onLogin} />
-      ) : (
-        <List isLoggedIn={isLoggedIn} onLogout={onLogout} />
-      )}
+      <div className="flex-grow">
+        {!isLoggedIn ? (
+          <Landing onLogin={onLogin} />
+        ) : (
+          <List isLoggedIn={isLoggedIn} onLogout={onLogout} />
+        )}
+      </div>
       <Footer />
     </div>
   );

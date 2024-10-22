@@ -1,6 +1,6 @@
 const Header = ({ onLogout }) => {
   return (
-    <header className="transition-all bg-pink dark:bg-hot-pink dark:text-white flex flex-col justify-center items-center text-center pb-6">
+    <header className="transition-all bg-pink dark:bg-hot-pink dark:text-white flex flex-col justify-center items-center text-center pb-6 px-3">
       <h1 className="w-10/12 text-2xl md:w-9/12 lg:text-3xl px-3 pt-6 pb-2">
         30 Things To Do Before Turning 30
       </h1>

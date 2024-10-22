@@ -168,7 +168,7 @@ const List = ({ isLoggedIn, onLogout }) => {
         <div className="mt-4 flex justify-center">
           <button
             onClick={clearListHandler}
-            className="bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black w-full text-lg max-w-xs px-1.5 py-2 rounded-md transition-all"
+            className="mx-3 bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black w-full text-lg max-w-xs px-1.5 py-2 rounded-md transition-all"
           >
             Clear the list
           </button>

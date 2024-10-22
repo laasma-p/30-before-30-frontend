@@ -86,6 +86,31 @@ const List = ({ isLoggedIn, onLogout }) => {
     }
   };
 
+  const removeItemHandler = async (itemId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/remove-item/${itemId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to remove item");
+      }
+
+      setListItems((prevListItems) =>
+        prevListItems.filter((item) => item.id !== itemId)
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const totalItemsCount = listItems.length;
   const completedItemsCount = listItems.filter((item) => item.completed).length;
   const maxListItems = 30;
@@ -136,6 +161,7 @@ const List = ({ isLoggedIn, onLogout }) => {
                   isCompleted={listItem.completed}
                   isLoggedIn={isLoggedIn}
                   onClick={() => completeItemHandler(listItem.id)}
+                  onRemove={() => removeItemHandler(listItem.id)}
                 >
                   {listItem.item}
                 </ListItem>

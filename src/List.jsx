@@ -111,6 +111,26 @@ const List = ({ isLoggedIn, onLogout }) => {
     }
   };
 
+  const clearListHandler = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/clear-list", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to clear the list");
+      }
+
+      setListItems([]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const totalItemsCount = listItems.length;
   const completedItemsCount = listItems.filter((item) => item.completed).length;
   const maxListItems = 30;
@@ -132,7 +152,7 @@ const List = ({ isLoggedIn, onLogout }) => {
               <input
                 id="listItem"
                 type="text"
-                className="border border-hot-pink p-2 rounded-md"
+                className="border border-hot-pink p-2 rounded-md focus:outline-hot-pink"
                 value={listItem}
                 onChange={listItemChangeHandler}
                 placeholder="A new item"
@@ -143,6 +163,16 @@ const List = ({ isLoggedIn, onLogout }) => {
             </div>
           </div>
         </form>
+      )}
+      {totalItemsCount > 0 && (
+        <div className="mt-4 flex justify-center">
+          <button
+            onClick={clearListHandler}
+            className="bg-hot-pink hover:bg-pink text-white hover:text-black dark:bg-pink dark:hover:bg-hot-pink dark:hover:text-black w-full text-lg max-w-xs px-1.5 py-2 rounded-md transition-all"
+          >
+            Clear the list
+          </button>
+        </div>
       )}
       {totalItemsCount >= maxListItems && (
         <p className="py-1.5 px-4 text-lg text-center">

@@ -46,16 +46,18 @@ const ListItem = ({ children, isCompleted, onClick, onRemove, onEdit }) => {
           <div className="flex flex-row">
             <button
               onClick={() => {
-                setIsEditing(true);
+                if (!isCompleted) setIsEditing(true);
               }}
-              className="ml-4 bg-hot-pink text-white hover:text-black px-3 py-1 rounded hover:bg-pink transition-all"
+              className={`ml-4 px-3 py-1 rounded transition-all ${
+                isCompleted
+                  ? "bg-beige text-black cursor-not-allowed"
+                  : "bg-hot-pink text-white hover:text-black hover:bg-pink"
+              }`}
             >
               Edit
             </button>
             <button
-              onClick={() => {
-                onRemove();
-              }}
+              onClick={onRemove}
               className="ml-4 bg-hot-pink text-white hover:text-black px-3 py-1 rounded hover:bg-pink transition-all"
             >
               Remove

@@ -131,6 +131,33 @@ const List = ({ isLoggedIn, onLogout }) => {
     }
   };
 
+  const editItemHandler = async (itemId, newItem) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/edit-item/${itemId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ item: newItem }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to edit the item");
+      }
+
+      const updatedItem = await response.json();
+      setListItems((prevListItems) =>
+        prevListItems.map((item) => (item.id === itemId ? updatedItem : item))
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const totalItemsCount = listItems.length;
   const completedItemsCount = listItems.filter((item) => item.completed).length;
   const maxListItems = 30;
@@ -192,6 +219,7 @@ const List = ({ isLoggedIn, onLogout }) => {
                   isLoggedIn={isLoggedIn}
                   onClick={() => completeItemHandler(listItem.id)}
                   onRemove={() => removeItemHandler(listItem.id)}
+                  onEdit={(newItem) => editItemHandler(listItem.id, newItem)}
                 >
                   {listItem.item}
                 </ListItem>

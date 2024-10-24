@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Form from "./Form";
+import Forms from "./Forms";
 
 const Landing = ({ onLogin }) => {
   const [openForm, setOpenForm] = useState(false);
@@ -26,7 +26,7 @@ const Landing = ({ onLogin }) => {
           Login/Register
         </button>
       )}
-      {openForm && <Form onLogin={onLogin} />}
+      {openForm && <Forms onLogin={onLogin} />}
     </div>
   );
 };
